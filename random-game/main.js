@@ -29,6 +29,8 @@ const c = {
         this.ctx.strokeRect(x, y, widthTile, heightTile);
         this.ctx.font = '40px Arial';
         this.ctx.fillStyle = 'red';
+        this.ctx.textAlign = 'center';
+        this.ctx.textBaseline = 'middle';
         this.ctx.fillText('2', x + widthTile / 2, y + heightTile / 2);
       }
     }
