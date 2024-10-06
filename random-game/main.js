@@ -55,8 +55,49 @@ const c = {
     return Math.floor(Math.random() * 4);
   },
 
+  createMatrix() {
+    for (let i = 0; i < this.numberTile; i += 1) {
+      this.arrayValues.push([]);
+      for (let j = 0; j < this.numberTile; j += 1) {
+        this.arrayValues[i].push(0);
+      }
+    }
+  },
+
+  changeMatrix(e) {
+    if (e.key === 'ArrowLeft') {
+      const filteredArray = this.arrayValues.map((row) => {
+        return row.filter((el) => el);
+      });
+
+      filteredArray.forEach((row) => {
+        for (let i = 0; i < row.length; i += 1) {
+          if (row[i] === row[i + 1]) {
+            row[i] += row[i + 1];
+            row[i + 1] = null;
+            i += 1;
+          }
+        }
+      });
+
+      filteredArray.forEach((row) => {
+        row.filter((el) => el !== null);
+      });
+
+      filteredArray.forEach((row) => {
+        for (let i = 0; i < this.numberTile; i += 1) {
+          if (!row[i]) {
+            row[i] = 0;
+          }
+        }
+      });
+      this.drawTile();
+      console.log(filteredArray);
+    }
+  },
+
   move(e) {
-    console.log(e);
+    this.changeMatrix(e);
   },
 };
 
