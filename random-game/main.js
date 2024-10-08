@@ -101,6 +101,25 @@ const c = {
       this.filteredArray = this.filteredArray.map((row) => row.reverse());
       this.addTile();
     }
+
+    if (e.key === 'ArrowUp') {
+      this.transposeMatrix();
+      this.filterArray();
+      this.transposeMatrix();
+      this.addTile();
+    }
+  },
+
+  // TRANSPOSE MATRIX
+
+  transposeMatrix() {
+    for (let i = 0; i < this.numberTile; i += 1) {
+      for (let j = i; j < this.numberTile; j += 1) {
+        const temp = this.arrayValues[i][j];
+        this.arrayValues[i][j] = this.arrayValues[j][i];
+        this.arrayValues[j][i] = temp;
+      }
+    }
   },
 
   // FILTER ARRAY
