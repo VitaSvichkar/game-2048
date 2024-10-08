@@ -108,6 +108,17 @@ const c = {
       this.transposeMatrix();
       this.addTile();
     }
+
+    if (e.key === 'ArrowDown') {
+      this.transposeMatrix();
+      this.filteredArray = this.arrayValues.map((row) => {
+        return row.reverse();
+      });
+      this.filterArray();
+      this.filteredArray = this.filteredArray.map((row) => row.reverse());
+      this.transposeMatrix();
+      this.addTile();
+    }
   },
 
   // TRANSPOSE MATRIX
