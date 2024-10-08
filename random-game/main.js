@@ -86,39 +86,84 @@ const c = {
   // CHANGE MATRIX (filter array)
 
   changeMatrix(e) {
+    let filteredArray;
+
     if (e.key === 'ArrowLeft') {
-      let filteredArray = this.arrayValues.map((row) => {
+      filteredArray = this.arrayValues.map((row) => {
         return row.filter((el) => el !== 0);
       });
-      console.log(filteredArray);
-      filteredArray.forEach((row) => {
-        for (let i = 0; i < this.numberTile; i += 1) {
-          if (isNaN(row[i])) {
-            row[i] = 0;
-          }
-          if (row[i] === row[i + 1]) {
-            row[i] += row[i + 1];
-            row[i + 1] = 0;
-            i += 1;
-          }
-        }
-      });
-      console.log(filteredArray);
+      this.filterArray(filteredArray);
 
-      filteredArray.forEach((row, index) => {
-        filteredArray[index] = row.filter((el) => el !== 0);
-      });
-      // console.log(filteredArray);
-      filteredArray.forEach((row) => {
-        for (let i = 0; i < this.numberTile; i += 1) {
-          if (!row[i]) {
-            row[i] = 0;
-          }
-        }
-      });
-      this.arrayValues = [...filteredArray];
-      this.addTile();
+      //   console.log(filteredArray);
+      //   filteredArray.forEach((row) => {
+      //     for (let i = 0; i < this.numberTile; i += 1) {
+      //       if (isNaN(row[i])) {
+      //         row[i] = 0;
+      //       }
+      //       if (row[i] === row[i + 1]) {
+      //         row[i] += row[i + 1];
+      //         row[i + 1] = 0;
+      //         i += 1;
+      //       }
+      //     }
+      //   });
+      //   console.log(filteredArray);
+
+      //   filteredArray.forEach((row, index) => {
+      //     filteredArray[index] = row.filter((el) => el !== 0);
+      //   });
+      //   // console.log(filteredArray);
+      //   filteredArray.forEach((row) => {
+      //     for (let i = 0; i < this.numberTile; i += 1) {
+      //       if (!row[i]) {
+      //         row[i] = 0;
+      //       }
+      //     }
+      //   });
+      //   this.arrayValues = [...filteredArray];
+      //   this.addTile();
     }
+
+    if (e.key === 'ArrowRight') {
+      filteredArray = this.arrayValues.map((row) => {
+        return row.reverse().filter((el) => el !== 0);
+      });
+      filteredArray = this.filterArray(filteredArray);
+      filteredArray = filteredArray.map((row) => row.reverse());
+    }
+
+    this.arrayValues = [...filteredArray];
+    this.addTile();
+  },
+
+  // FILTER ARRAY
+
+  filterArray(array) {
+    array.forEach((row) => {
+      for (let i = 0; i < this.numberTile; i += 1) {
+        if (isNaN(row[i])) {
+          row[i] = 0;
+        }
+        if (row[i] === row[i + 1]) {
+          row[i] += row[i + 1];
+          row[i + 1] = 0;
+          i += 1;
+        }
+      }
+    });
+
+    array.forEach((row, index) => {
+      array[index] = row.filter((el) => el !== 0);
+    });
+
+    array.forEach((row) => {
+      for (let i = 0; i < this.numberTile; i += 1) {
+        if (!row[i]) {
+          row[i] = 0;
+        }
+      }
+    });
+    return array;
   },
 
   // KEY
