@@ -7,6 +7,7 @@ const c = {
   heightCanvas: 400,
   numberTile: 4,
   arrayValues: [],
+  filteredArray: [],
 
   // START GAME
 
@@ -83,42 +84,63 @@ const c = {
     }
   },
 
-  // CHANGE MATRIX (filter array)
+  // CHANGE MATRIX
 
   changeMatrix(e) {
     if (e.key === 'ArrowLeft') {
-      let filteredArray = this.arrayValues.map((row) => {
-        return row.filter((el) => el !== 0);
-      });
-      console.log(filteredArray);
-      filteredArray.forEach((row) => {
-        for (let i = 0; i < this.numberTile; i += 1) {
-          if (isNaN(row[i])) {
-            row[i] = 0;
-          }
-          if (row[i] === row[i + 1]) {
-            row[i] += row[i + 1];
-            row[i + 1] = 0;
-            i += 1;
-          }
-        }
-      });
-      console.log(filteredArray);
-
-      filteredArray.forEach((row, index) => {
-        filteredArray[index] = row.filter((el) => el !== 0);
-      });
-      // console.log(filteredArray);
-      filteredArray.forEach((row) => {
-        for (let i = 0; i < this.numberTile; i += 1) {
-          if (!row[i]) {
-            row[i] = 0;
-          }
-        }
-      });
-      this.arrayValues = [...filteredArray];
+      this.filterArray();
       this.addTile();
     }
+
+    if (e.key === 'ArrowRight') {
+      this.filteredArray = this.arrayValues.map((row) => {
+        return row.reverse();
+      });
+
+      this.filterArray();
+      this.filteredArray = this.filteredArray.map((row) => row.reverse());
+      this.addTile();
+    }
+  },
+
+  // FILTER ARRAY
+
+  filterArray() {
+    // remove zeros between values
+    this.filteredArray = this.arrayValues.map((row) => {
+      return row.filter((el) => el !== 0);
+    });
+
+    // sum the values
+    this.filteredArray.forEach((row) => {
+      for (let i = 0; i < this.numberTile; i += 1) {
+        if (isNaN(row[i])) {
+          row[i] = 0;
+        }
+        if (row[i] === row[i + 1]) {
+          row[i] += row[i + 1];
+          row[i + 1] = 0;
+          i += 1;
+        }
+      }
+    });
+
+    // remove zeros between values
+    this.filteredArray.forEach((row, i) => {
+      this.filteredArray[i] = row.filter((el) => el !== 0);
+    });
+
+    // add zeros at the end
+    this.filteredArray.forEach((row) => {
+      for (let i = 0; i < this.numberTile; i += 1) {
+        if (!row[i]) {
+          row[i] = 0;
+        }
+      }
+    });
+
+    this.arrayValues = this.filteredArray;
+    console.log(this.arrayValues);
   },
 
   // KEY
