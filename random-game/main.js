@@ -3,9 +3,17 @@ console.log('kjk');
 const c = {
   ctx: null,
   canvas: null,
+  matrixCanvas: null,
+  ctxM: null,
   widthCanvas: 400,
   heightCanvas: 400,
   numberTile: 4,
+  fontSize: 70,
+  gap: 0,
+  rowGap: 0,
+  drops: [],
+  columns: 0,
+  symbols: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',
   arrayValues: [],
   filteredArray: [],
 
@@ -17,16 +25,50 @@ const c = {
     this.canvas.height = this.heightCanvas;
     this.ctx = this.canvas.getContext('2d');
 
+    this.matrixCanvas = document.getElementById('matrix-canvas');
+    this.ctxM = this.matrixCanvas.getContext('2d');
+    this.matrixCanvas.width = window.innerWidth;
+    this.matrixCanvas.height = window.innerHeight;
+    console.log(this.matrixCanvas.width);
+
+    this.columns = this.matrixCanvas.width / this.fontSize;
+    // this.columns = this.matrixCanvas.width / 90;
+    this.drops = Array(Math.floor(this.columns)).fill(1);
+
     this.createMatrix();
     this.addTile();
+    this.animateMatrix();
+  },
+
+  animateMatrix() {
+    this.ctxM.fillStyle = 'rgba(0, 0, 0, 0.1)';
+    this.ctxM.fillRect(0, 0, 1900, 1300);
+    this.ctxM.fillStyle = 'red';
+    this.ctxM.font = `${this.fontSize}px Arial`;
+
+    this.drops.forEach((drop, i) => {
+      const symbol =
+        this.symbols[Math.floor(Math.random() * this.symbols.length)];
+      this.ctxM.fillText(symbol, i * this.fontSize, drop * this.fontSize);
+
+      if (
+        drop * this.fontSize > this.matrixCanvas.height &&
+        Math.random() > 0.975
+      ) {
+        this.drops[i] = 0;
+      }
+
+      this.drops[i]++;
+    });
+
+    setTimeout(() => requestAnimationFrame(() => this.animateMatrix()), 60);
+    // requestAnimationFrame(() => this.animateMatrix());
   },
 
   // DRAW TILE
 
   drawTile() {
-    this.ctx.clearRect(0, 0, this.widthCanvas, this.heightCanvas);
-    this.ctx.fillStyle = '#fff';
-    this.ctx.fillRect(0, 0, this.widthCanvas, this.heightCanvas);
+    this.clearCanvas();
     const widthTile = this.widthCanvas / this.numberTile;
     const heightTile = widthTile;
     let x = 0;
@@ -48,12 +90,19 @@ const c = {
     });
   },
 
+  clearCanvas() {
+    this.ctx.clearRect(0, 0, this.widthCanvas, this.heightCanvas);
+    this.ctx.fillStyle = '#fff';
+    this.ctx.fillRect(0, 0, this.widthCanvas, this.heightCanvas);
+  },
+
   // ADD TILE
 
   addTile() {
     let row = this.getRandom();
     let col = this.getRandom();
-    const r = Math.random() >= 0.5 ? 2 : 4;
+    const randomValue = Math.random() >= 0.5 ? 2 : 4;
+
     if (this.arrayValues.flat().some((val) => val === 0)) {
       while (this.arrayValues[row][col] !== 0) {
         row = this.getRandom();
@@ -61,9 +110,13 @@ const c = {
       }
     } else {
       window.alert('loser');
+      this.symbols = 'LOSER';
+      for (let k of this.symbols) {
+        this.ctxM.fillText(symbol, i * this.fontSize, drop * this.fontSize);
+      }
     }
 
-    this.arrayValues[row][col] = r;
+    this.arrayValues[row][col] = randomValue;
     this.drawTile();
   },
 
@@ -189,3 +242,10 @@ document.addEventListener('DOMContentLoaded', () => {
 // CLICK
 
 document.addEventListener('keydown', c.move.bind(c));
+
+window.addEventListener('resize', () => {
+  // c.matrixCanvas.width = window.innerWidth;
+  // c.matrixCanvas.height = window.innerHeight;
+  // c.columns = c.matrixCanvas.width / c.fontSize;
+  // c.drops = Array(Math.floor(c.columns)).fill(1);
+});
