@@ -16,6 +16,8 @@ const c = {
   symbols: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',
   arrayValues: [],
   filteredArray: [],
+  isMatch: false,
+  isZero: true,
 
   // START GAME
 
@@ -34,7 +36,6 @@ const c = {
     this.columns = this.matrixCanvas.width / this.fontSize;
     // this.columns = this.matrixCanvas.width / 90;
     this.drops = Array(Math.floor(this.columns)).fill(1);
-
     this.createMatrix();
     this.addTile();
     this.animateMatrix();
@@ -101,6 +102,7 @@ const c = {
   addTile() {
     let row = this.getRandom();
     let col = this.getRandom();
+
     const randomValue = Math.random() >= 0.5 ? 2 : 4;
 
     if (this.arrayValues.flat().some((val) => val === 0)) {
@@ -108,16 +110,63 @@ const c = {
         row = this.getRandom();
         col = this.getRandom();
       }
-    } else {
-      window.alert('loser');
-      this.symbols = 'LOSER';
-      for (let k of this.symbols) {
-        this.ctxM.fillText(symbol, i * this.fontSize, drop * this.fontSize);
+      this.arrayValues[row][col] = randomValue;
+      this.drawTile();
+    }
+    // else {
+    //   this.checkError();
+    // }
+  },
+
+  checkZero() {
+    this.isZero = true;
+    for (let k = 0; k < this.arrayValues.length; k += 1) {
+      for (let l = 0; l < this.arrayValues[k].length; l += 1) {
+        if (this.arrayValues[k][l] === 0) {
+          this.isZero = false;
+          break;
+        }
+      }
+      if (!this.isZero) {
+        break;
       }
     }
+  },
 
-    this.arrayValues[row][col] = randomValue;
-    this.drawTile();
+  checkMatch() {
+    this.isMatch = false;
+    for (let i = 0; i < this.arrayValues.length; i += 1) {
+      for (let j = 0; j < this.arrayValues[i].length - 1; j += 1) {
+        if (this.arrayValues[i][j] === this.arrayValues[i][j + 1]) {
+          this.isMatch = true;
+          break;
+        }
+      }
+      if (this.isMatch) {
+        break;
+      }
+    }
+  },
+
+  checkError() {
+    this.checkZero();
+    if (!this.isZero) {
+      return;
+    }
+    this.checkMatch();
+    if (!this.isMatch) {
+      for (let i = 0; i < 2; i += 1) {
+        this.transposeMatrix();
+        this.checkMatch();
+        if (this.isMatch) {
+          break;
+        }
+      }
+      if (!this.isMatch && this.isZero) {
+        return true;
+      }
+    }
+    return false;
   },
 
   // GET RANDOM NUMBER
@@ -140,26 +189,24 @@ const c = {
   // CHANGE MATRIX
 
   changeMatrix(e) {
+    let isMove = false;
+
     if (e.key === 'ArrowLeft') {
-      this.filterArray();
-      this.addTile();
+      isMove = this.filterArray();
     }
 
     if (e.key === 'ArrowRight') {
       this.filteredArray = this.arrayValues.map((row) => {
         return row.reverse();
       });
-
-      this.filterArray();
+      isMove = this.filterArray();
       this.filteredArray = this.filteredArray.map((row) => row.reverse());
-      this.addTile();
     }
 
     if (e.key === 'ArrowUp') {
       this.transposeMatrix();
-      this.filterArray();
+      isMove = this.filterArray();
       this.transposeMatrix();
-      this.addTile();
     }
 
     if (e.key === 'ArrowDown') {
@@ -167,10 +214,22 @@ const c = {
       this.filteredArray = this.arrayValues.map((row) => {
         return row.reverse();
       });
-      this.filterArray();
+      isMove = this.filterArray();
       this.filteredArray = this.filteredArray.map((row) => row.reverse());
       this.transposeMatrix();
-      this.addTile();
+    }
+
+    if (isMove) {
+      if (!this.checkError()) {
+        this.addTile();
+      }
+    } else if (!this.checkError()) {
+      // window.alert('еще есть совпадения');
+      return;
+    } else {
+      if (this.checkError()) {
+        window.alert('ты проиграл');
+      }
     }
   },
 
@@ -189,6 +248,7 @@ const c = {
   // FILTER ARRAY
 
   filterArray() {
+    let isChange = false;
     // remove zeros between values
     this.filteredArray = this.arrayValues.map((row) => {
       return row.filter((el) => el !== 0);
@@ -203,6 +263,7 @@ const c = {
         if (row[i] === row[i + 1]) {
           row[i] += row[i + 1];
           row[i + 1] = 0;
+          isChange = true;
           i += 1;
         }
       }
@@ -217,13 +278,14 @@ const c = {
     this.filteredArray.forEach((row) => {
       for (let i = 0; i < this.numberTile; i += 1) {
         if (!row[i]) {
+          isChange = true;
           row[i] = 0;
         }
       }
     });
-
     this.arrayValues = this.filteredArray;
     console.log(this.arrayValues);
+    return isChange;
   },
 
   // KEY
