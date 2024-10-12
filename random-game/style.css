@@ -1,17 +1,19 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
   /* background-color: red; */
   overflow: hidden;
+  font-family: 'Space Mono', monospace;
 }
 
 #matrix-canvas {
   width: 100vw;
   height: 100vh;
-  background-color: #000;
+  background-color: #fff;
   position: absolute;
   z-index: 1;
   left: 0;
@@ -19,6 +21,57 @@ body {
 }
 
 #canvas {
+  border: 1px solid black;
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 2;
+}
+
+.record {
+  color: rgb(79, 211, 31);
+  position: absolute;
+  z-index: 3;
+  max-width: 300px;
+  /* padding-left: 20px; */
+  /* min-width: 270px; */
+  /* width: 500px; */
+  /* width: 200px; */
+  /* height: auto; */
+  /* display: flex; */
+
+  background-color: rgba(0, 0, 0, 0.437);
+  border: 1px solid rgb(79, 211, 31);
+}
+
+.table,
+td,
+th {
+  border-bottom: 1px solid black;
+  border-collapse: collapse;
+}
+.table {
+  text-align: left;
+  font-size: 16px;
+  table-layout: fixed;
+  width: 100%;
+}
+
+td,
+th {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 30px;
+  padding-left: 20px;
+}
+
+.score {
+  width: 100px;
+}
+
+.caption {
+  color: #000;
+  background-color: rgba(113, 247, 139, 0.315);
 }

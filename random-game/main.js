@@ -8,7 +8,7 @@ const c = {
   widthCanvas: 400,
   heightCanvas: 400,
   numberTile: 4,
-  fontSize: 70,
+  fontSize: 15,
   gap: 0,
   rowGap: 0,
   drops: [],
@@ -43,8 +43,8 @@ const c = {
 
   animateMatrix() {
     this.ctxM.fillStyle = 'rgba(0, 0, 0, 0.1)';
-    this.ctxM.fillRect(0, 0, 1900, 1300);
-    this.ctxM.fillStyle = 'red';
+    this.ctxM.fillRect(0, 0, 1900, 1000);
+    this.ctxM.fillStyle = 'green';
     this.ctxM.font = `${this.fontSize}px Arial`;
 
     this.drops.forEach((drop, i) => {
@@ -117,6 +117,8 @@ const c = {
     //   this.checkError();
     // }
   },
+
+  // ERROR
 
   checkZero() {
     this.isZero = true;
