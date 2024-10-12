@@ -8,12 +8,14 @@ body {
   /* background-color: red; */
   overflow: hidden;
   font-family: 'Space Mono', monospace;
+  font-size: 16px;
+  color: #fff;
 }
 
 #matrix-canvas {
   width: 100vw;
   height: 100vh;
-  background-color: #fff;
+  /* background-color: #fff; */
   position: absolute;
   z-index: 1;
   left: 0;
@@ -29,18 +31,15 @@ body {
   z-index: 2;
 }
 
-.record {
-  color: rgb(79, 211, 31);
-  position: absolute;
+.wrap {
+  position: relative;
   z-index: 3;
+  /* background-color: #fff; */
   max-width: 300px;
-  /* padding-left: 20px; */
-  /* min-width: 270px; */
-  /* width: 500px; */
-  /* width: 200px; */
-  /* height: auto; */
-  /* display: flex; */
-
+}
+.record {
+  margin-top: 10px;
+  color: rgb(79, 211, 31);
   background-color: rgba(0, 0, 0, 0.437);
   border: 1px solid rgb(79, 211, 31);
 }
@@ -51,9 +50,9 @@ th {
   border-bottom: 1px solid black;
   border-collapse: collapse;
 }
+
 .table {
   text-align: left;
-  font-size: 16px;
   table-layout: fixed;
   width: 100%;
 }
@@ -72,6 +71,42 @@ th {
 }
 
 .caption {
-  color: #000;
+  color: #fff;
   background-color: rgba(113, 247, 139, 0.315);
+}
+
+th {
+  color: #fff;
+  font-weight: 100;
+}
+
+label {
+  display: block;
+  text-align: left;
+  position: relative;
+  width: 100%;
+  padding: 10px;
+  /* padding-right: 20px; */
+  /* background-color: blue; */
+}
+
+input {
+  padding: 2px 20px;
+  background-color: rgba(113, 247, 139, 0.315);
+  border: 1px solid rgb(79, 211, 31);
+  outline: none;
+  font-size: 20px;
+  color: #fff;
+  width: 100%;
+  height: 30px;
+}
+
+.ico {
+  display: block;
+  width: 20px;
+  /* background-color: #fff; */
+  position: absolute;
+  right: 11px;
+  bottom: 13px;
+  cursor: pointer;
 }
