@@ -315,10 +315,9 @@ const c = {
           row[i] = 0;
         }
         if (row[i] === row[i + 1]) {
-          row[i] += row[i + 1];
-          // this.sum = row[i];
-          row[i + 1] = 0;
           isChange = true;
+          row[i] += row[i + 1];
+          row[i + 1] = 0;
           i += 1;
         }
       }
@@ -338,8 +337,13 @@ const c = {
         }
       }
     });
-    this.arrayValues = this.filteredArray;
+    if (
+      JSON.stringify(this.arrayValues) === JSON.stringify(this.filteredArray)
+    ) {
+      isChange = false;
+    }
 
+    this.arrayValues = this.filteredArray;
     return isChange;
   },
 
