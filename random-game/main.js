@@ -289,6 +289,12 @@ const c = {
     }
   },
 
+  getHigherNumber() {
+    const sorting = [...this.arrayValues.flat().sort((a, b) => a - b)];
+    return sorting[sorting.length - 1];
+    console.log(sorting);
+  },
+
   // FILTER ARRAY
 
   filterArray() {
@@ -330,6 +336,7 @@ const c = {
       }
     });
     this.arrayValues = this.filteredArray;
+    this.getHigherNumber();
     return isChange;
   },
 
