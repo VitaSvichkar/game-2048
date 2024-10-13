@@ -5,11 +5,15 @@
 }
 
 body {
+  width: 100%;
+  background-color: #fff;
   overflow: hidden;
   font-family: 'Space Mono', monospace;
   font-size: 16px;
   color: antiquewhite;
 }
+
+/* ANIMATION MATRIX */
 
 #matrix-canvas {
   width: 100vw;
@@ -19,6 +23,8 @@ body {
   left: 0;
   top: 0;
 }
+
+/* GAME */
 
 .game {
   position: absolute;
@@ -58,6 +64,8 @@ body {
   z-index: 3;
   max-width: 300px;
 }
+
+/* TABLE  */
 
 .record {
   margin-top: 10px;
@@ -130,6 +138,8 @@ input {
   cursor: pointer;
 }
 
+/* MODAL */
+
 .modal-wrap {
   display: none;
   position: absolute;
@@ -192,6 +202,8 @@ input {
   font-weight: bold;
 }
 
+/* BTN-MODAL */
+
 .btn_new-game {
   font-size: 15px;
   color: antiquewhite;
@@ -212,6 +224,8 @@ input {
   background-color: rgba(37, 5, 5, 0.556);
 }
 
+/* BTN-WIN  */
+
 .btn-win {
   border: 1px solid rgb(79, 211, 31);
 }
@@ -222,4 +236,45 @@ input {
 
 .btn_win:active {
   background-color: rgba(4, 59, 14, 0.836);
+}
+
+/* FOOTER */
+
+.wrap-footer {
+  position: absolute;
+  width: 100%;
+  z-index: 3;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.737);
+  border-top: 1px solid rgba(99, 6, 51, 0.332);
+}
+
+footer a {
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+footer a:hover {
+  transform: scale(1.1);
+}
+
+.year {
+  transition: all 0.4s ease;
+}
+
+.year:hover {
+  color: rgb(255, 184, 69);
+  transform: rotate(360deg);
+}
+
+.logo-git {
+  filter: invert();
+}
+
+footer {
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
 }
