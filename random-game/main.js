@@ -8,9 +8,10 @@ const c = {
   widthCanvas: 400,
   heightCanvas: 400,
   numberTile: 4,
+  padding: 0,
   fontSize: 15,
-  gap: 0,
-  rowGap: 0,
+  gap: 10,
+  sum: 0,
   drops: [],
   columns: 0,
   symbols: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',
@@ -45,7 +46,7 @@ const c = {
     this.ctxM.fillStyle = 'rgba(0, 0, 0, 0.1)';
     this.ctxM.fillRect(0, 0, 1900, 1000);
     this.ctxM.fillStyle = 'green';
-    this.ctxM.font = `${this.fontSize}px Arial`;
+    this.ctxM.font = `${this.fontSize}px 'Space Mono'`;
 
     this.drops.forEach((drop, i) => {
       const symbol =
@@ -70,19 +71,33 @@ const c = {
 
   drawTile() {
     this.clearCanvas();
-    const widthTile = this.widthCanvas / this.numberTile;
+    const totalGap = this.gap * 3;
+    const totalPad = this.gap * 2;
+    const widthTile =
+      (this.widthCanvas - totalGap - totalPad) / this.numberTile;
+    console.log(widthTile);
+    // const widthTile = this.widthCanvas / this.numberTile;
     const heightTile = widthTile;
     let x = 0;
     let y = 0;
 
     this.arrayValues.forEach((row, indY) => {
-      y = indY * widthTile;
+      // y = indY * widthTile;
+      y = indY * (widthTile + this.gap) + this.gap;
       row.forEach((val, indX) => {
-        x = indX * widthTile;
+        // x = indX * widthTile;
+        x = indX * (widthTile + this.gap) + this.gap;
         if (val !== 0) {
+          // this.ctx.strokeStyle = 'rgba(255, 255, 0, 0.1)';
+          this.ctx.strokeStyle = this.colorNumber(val);
+          this.ctx.lineWidth = '1px';
           this.ctx.strokeRect(x, y, widthTile, heightTile);
+          // this.colorNumber(val);
+          // this.ctx.fillRect(x, y, widthTile, heightTile);
           this.ctx.font = '40px Arial';
-          this.ctx.fillStyle = 'red';
+          // this.ctx.fillStyle = '#004AAA';
+          this.ctx.fillStyle = this.colorNumber(val);
+
           this.ctx.textAlign = 'center';
           this.ctx.textBaseline = 'middle';
           this.ctx.fillText(`${val}`, x + widthTile / 2, y + heightTile / 2);
@@ -93,7 +108,7 @@ const c = {
 
   clearCanvas() {
     this.ctx.clearRect(0, 0, this.widthCanvas, this.heightCanvas);
-    this.ctx.fillStyle = '#fff';
+    this.ctx.fillStyle = 'black';
     this.ctx.fillRect(0, 0, this.widthCanvas, this.heightCanvas);
   },
 
@@ -247,10 +262,38 @@ const c = {
     }
   },
 
+  colorNumber(num) {
+    switch (num) {
+      case 4:
+        return '#66FF66';
+      case 8:
+        return '#00FFFF';
+      case 16:
+        return '#9933FF';
+      case 32:
+        return '#FFFF00';
+      case 64:
+        return '#FF80E0';
+      case 128:
+        return '#FF33CC';
+      case 256:
+        return '#FF6666';
+      case 512:
+        return '#0000FF';
+      case 1024:
+        return '#800080';
+      case 2048:
+        return '#FFFFFF';
+      default:
+        return '#ABADCA';
+    }
+  },
+
   // FILTER ARRAY
 
   filterArray() {
     let isChange = false;
+    // let sum;
     // remove zeros between values
     this.filteredArray = this.arrayValues.map((row) => {
       return row.filter((el) => el !== 0);
@@ -264,6 +307,7 @@ const c = {
         }
         if (row[i] === row[i + 1]) {
           row[i] += row[i + 1];
+          // this.sum = row[i];
           row[i + 1] = 0;
           isChange = true;
           i += 1;
@@ -286,7 +330,6 @@ const c = {
       }
     });
     this.arrayValues = this.filteredArray;
-    console.log(this.arrayValues);
     return isChange;
   },
 
