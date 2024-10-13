@@ -13,6 +13,7 @@ const c = {
   btnNewGame: null,
   scoreResult: null,
   resultGameText: null,
+  titleScore: null,
   widthCanvas: 400,
   heightCanvas: 400,
   numberTile: 4,
@@ -53,6 +54,7 @@ const c = {
     this.scoreResult = document.querySelector('.score-result');
     console.log(this.scoreResult);
     this.resultGameText = document.querySelector('.result-game');
+    this.titleScore = document.querySelector('.modal-score');
 
     this.columns = this.matrixCanvas.width / this.fontSize;
     this.drops = Array(Math.floor(this.columns)).fill(1);
@@ -107,7 +109,8 @@ const c = {
         x = indX * (widthTile + this.gap) + this.gap;
         if (val !== 0) {
           if (val === highNum) {
-            this.scoreNum.style.color = this.colorNumber(val);
+            this.colorScore = this.colorNumber(val);
+            this.scoreNum.style.color = this.colorScore;
           }
           this.ctx.strokeStyle = this.colorNumber(val);
           this.ctx.lineWidth = '1px';
@@ -368,11 +371,17 @@ const c = {
   // MODAL WITH RESULTS
 
   showResults() {
+    this.modal.classList.remove('win');
+    this.btnNewGame.classList.remove('btn-win');
     this.modalWrap.style.display = 'block';
     this.scoreResult.textContent = this.higherNum;
+    this.scoreResult.style.color = this.colorScore;
 
     if (this.higherNum === 2048) {
+      this.modal.classList.add('win');
+      this.btnNewGame.classList.add('btn-win');
       this.resultGameText.textContent = 'You won';
+      this.titleScore.style.backgroundScore = 'rgb(19, 167, 17)';
     } else {
       this.resultGameText.textContent = 'You lost';
     }
