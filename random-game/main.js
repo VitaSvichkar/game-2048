@@ -14,6 +14,7 @@ const c = {
   scoreResult: null,
   resultGameText: null,
   titleScore: null,
+  // clickBtn: null,
   widthCanvas: 400,
   heightCanvas: 400,
   numberTile: 4,
@@ -51,6 +52,7 @@ const c = {
     this.modal = document.querySelector('.modal');
     this.closeModal = document.querySelector('.close-modal');
     this.btnNewGame = document.querySelector('.btn_new-game');
+    this.btnNewGame.addEventListener('click', this.newGame.bind(this));
     this.scoreResult = document.querySelector('.score-result');
     console.log(this.scoreResult);
     this.resultGameText = document.querySelector('.result-game');
@@ -60,6 +62,8 @@ const c = {
     this.drops = Array(Math.floor(this.columns)).fill(1);
     this.createMatrix();
     this.addTile();
+    this.addTile();
+    this.drawTile();
     this.animateMatrix();
   },
 
@@ -146,7 +150,6 @@ const c = {
         col = this.getRandom();
       }
       this.arrayValues[row][col] = randomValue;
-      this.drawTile();
     }
     // else {
     //   this.checkError();
@@ -259,6 +262,7 @@ const c = {
     if (isMove) {
       if (!this.checkError()) {
         this.addTile();
+        this.drawTile();
       }
     } else if (!this.checkError()) {
       return;
@@ -386,6 +390,16 @@ const c = {
       this.resultGameText.textContent = 'You lost';
     }
     this.scoreResult.textContent = this.higherNum;
+  },
+
+  newGame() {
+    this.modalWrap.style.display = 'none';
+    this.clearCanvas();
+    this.arrayValues = [];
+    this.createMatrix();
+    this.addTile();
+    this.addTile();
+    this.drawTile();
   },
 
   // KEY
