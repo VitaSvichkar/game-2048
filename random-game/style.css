@@ -37,24 +37,40 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  /* background-color: rgba(93, 0, 255, 0.322); */
+  background-color: rgba(0, 0, 0, 0.697);
   border: 1px solid rgba(0, 255, 183, 0.289);
 }
 
 .score {
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 20px;
   font-size: 30px;
   color: rgb(255, 245, 202);
   text-transform: uppercase;
-  padding-left: 10px;
-  /* background: #0e6fba7d; */
+  padding: 0 10px;
+  /* background-color: rgba(0, 0, 0, 0.767); */
   /* border: 1px solid rgba(93, 0, 255, 0.467); */
 }
 
 .score-num {
-  display: inline-block;
-  color: rgb(48, 226, 211);
+  /* color: rgb(48, 226, 211); */
   /* background-color: red; */
+}
+
+.btn-reset {
+  /* font-size: px; */
+  color: rgb(158, 0, 0);
+  text-transform: uppercase;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  /* background-color: rgba(20, 65, 225, 0.373); */
+  /* color: rgb(197, 191, 27); */
+}
+
+.btn-reset:hover {
+  color: rgb(255, 30, 30);
 }
 
 .wrap {

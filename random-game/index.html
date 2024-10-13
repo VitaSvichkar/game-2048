@@ -13,6 +13,7 @@
 </head>
 
 <body>
+  <!-- MODAL -->
   <div class="modal-wrap">
     <div class="modal">
       <i class="close-modal">&times;</i>
@@ -22,13 +23,19 @@
     </div>
   </div>
 
+  <!-- CANVAS matrix -->
   <canvas id="matrix-canvas"></canvas>
+
+  <!-- GAME -->
   <div class="game">
-    <div class="score">Score <span class="score-num">0</span>
+    <div class="score">
+      <span>Score <span class="score-num">0</span></span>
+      <button class="btn-reset">Reset</button>
     </div>
     <canvas id="canvas"></canvas>
   </div>
 
+  <!-- TABLE -->
   <div class="wrap">
     <label for="name" class="inp-label">Еnter your name
       <input id="name" type="text" placeholder="name.." autocomplete="off" autofocus>

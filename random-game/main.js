@@ -11,10 +11,10 @@ const c = {
   modal: null,
   closeModal: null,
   btnNewGame: null,
+  btnReset: null,
   scoreResult: null,
   resultGameText: null,
   titleScore: null,
-  // clickBtn: null,
   widthCanvas: 400,
   heightCanvas: 400,
   numberTile: 4,
@@ -53,6 +53,8 @@ const c = {
     this.closeModal = document.querySelector('.close-modal');
     this.btnNewGame = document.querySelector('.btn_new-game');
     this.btnNewGame.addEventListener('click', this.newGame.bind(this));
+    this.btnReset = document.querySelector('.btn-reset');
+    this.btnReset.addEventListener('click', this.newGame.bind(this));
     this.scoreResult = document.querySelector('.score-result');
     console.log(this.scoreResult);
     this.resultGameText = document.querySelector('.result-game');
@@ -129,6 +131,8 @@ const c = {
       });
     });
   },
+
+  // CLEAR CANVAS
 
   clearCanvas() {
     this.ctx.clearRect(0, 0, this.widthCanvas, this.heightCanvas);
@@ -327,7 +331,6 @@ const c = {
 
   filterArray() {
     let isChange = false;
-    // let sum;
     // remove zeros between values
     this.filteredArray = this.arrayValues.map((row) => {
       return row.filter((el) => el !== 0);
