@@ -14,9 +14,9 @@ const c = {
   fontSize: 15,
   gap: 10,
   sum: 0,
-  drops: [],
   columns: 0,
   symbols: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  drops: [],
   arrayValues: [],
   filteredArray: [],
   isMatch: false,
@@ -48,6 +48,8 @@ const c = {
     this.addTile();
     this.animateMatrix();
   },
+
+  // ANIMATION
 
   animateMatrix() {
     this.ctxM.fillStyle = 'rgba(0, 0, 0, 0.1)';

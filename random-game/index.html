@@ -13,17 +13,22 @@
 </head>
 
 <body>
+  <div class="modal-wrap">
+    <div class="modal">
+      <i class="close-modal">&times;</i>
+      <!-- <hr width="100%"> -->
+      <span class="result-game">You lost</span>
+      <span class="modal-score">Score <span class="score-num">0</span></span>
+      <button class="btn_new-game">Try again</button>
+    </div>
+  </div>
 
   <canvas id="matrix-canvas"></canvas>
   <div class="game">
     <div class="score">Score <span class="score-num">0</span>
     </div>
     <canvas id="canvas"></canvas>
-
   </div>
-
-  <!-- <h3>Score</h3> -->
-
 
   <div class="wrap">
     <label for="name" class="inp-label">Еnter your name
