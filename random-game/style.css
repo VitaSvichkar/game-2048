@@ -23,13 +23,38 @@ body {
 }
 
 #canvas {
-  border: 1px solid rgba(255, 255, 0, 0.086);
+  /* border: 1px solid rgba(255, 255, 0, 0.086); */
   /* background-color: red; */
+  /* position: absolute;
+  top: 50%;
+  left: 50%; */
+  /* z-index: 2; */
+}
+
+.game {
   position: absolute;
+  z-index: 3;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 2;
+  /* background-color: rgba(93, 0, 255, 0.322); */
+  border: 1px solid rgba(0, 123, 255, 0.467);
+}
+
+.score {
+  margin-bottom: 20px;
+  font-size: 30px;
+  color: rgb(255, 245, 202);
+  text-transform: uppercase;
+  padding-left: 10px;
+  /* background: #0e6fba7d; */
+  /* border: 1px solid rgba(93, 0, 255, 0.467); */
+}
+
+.score-num {
+  display: inline-block;
+  color: rgb(48, 226, 211);
+  /* background-color: red; */
 }
 
 .wrap {
@@ -38,6 +63,7 @@ body {
   /* background-color: #fff; */
   max-width: 300px;
 }
+
 .record {
   margin-top: 10px;
   color: rgb(79, 211, 31);
@@ -67,7 +93,7 @@ th {
   padding-left: 20px;
 }
 
-.score {
+.table-score {
   width: 100px;
 }
 

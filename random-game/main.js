@@ -5,6 +5,8 @@ const c = {
   canvas: null,
   matrixCanvas: null,
   ctxM: null,
+  scoreNum: null,
+  colorScore: null,
   widthCanvas: 400,
   heightCanvas: 400,
   numberTile: 4,
@@ -33,6 +35,11 @@ const c = {
     this.matrixCanvas.width = window.innerWidth;
     this.matrixCanvas.height = window.innerHeight;
     console.log(this.matrixCanvas.width);
+
+    this.scoreNum = document.querySelector('.score-num');
+    // this.score.textContent = 'Score';
+    console.log(this.scoreNum);
+    // console.log('rjrnvvrjen');
 
     this.columns = this.matrixCanvas.width / this.fontSize;
     // this.columns = this.matrixCanvas.width / 90;
@@ -76,26 +83,22 @@ const c = {
     const widthTile =
       (this.widthCanvas - totalGap - totalPad) / this.numberTile;
     console.log(widthTile);
-    // const widthTile = this.widthCanvas / this.numberTile;
     const heightTile = widthTile;
     let x = 0;
     let y = 0;
-
+    const highNum = this.getHigherNumber();
     this.arrayValues.forEach((row, indY) => {
-      // y = indY * widthTile;
       y = indY * (widthTile + this.gap) + this.gap;
       row.forEach((val, indX) => {
-        // x = indX * widthTile;
         x = indX * (widthTile + this.gap) + this.gap;
         if (val !== 0) {
-          // this.ctx.strokeStyle = 'rgba(255, 255, 0, 0.1)';
+          if (val === highNum) {
+            this.scoreNum.style.color = this.colorNumber(val);
+          }
           this.ctx.strokeStyle = this.colorNumber(val);
           this.ctx.lineWidth = '1px';
           this.ctx.strokeRect(x, y, widthTile, heightTile);
-          // this.colorNumber(val);
-          // this.ctx.fillRect(x, y, widthTile, heightTile);
           this.ctx.font = '40px Arial';
-          // this.ctx.fillStyle = '#004AAA';
           this.ctx.fillStyle = this.colorNumber(val);
 
           this.ctx.textAlign = 'center';
@@ -241,7 +244,6 @@ const c = {
         this.addTile();
       }
     } else if (!this.checkError()) {
-      // window.alert('еще есть совпадения');
       return;
     } else {
       if (this.checkError()) {
@@ -291,8 +293,9 @@ const c = {
 
   getHigherNumber() {
     const sorting = [...this.arrayValues.flat().sort((a, b) => a - b)];
+    const num = sorting[sorting.length - 1];
+    this.scoreNum.textContent = num;
     return sorting[sorting.length - 1];
-    console.log(sorting);
   },
 
   // FILTER ARRAY
@@ -336,7 +339,7 @@ const c = {
       }
     });
     this.arrayValues = this.filteredArray;
-    this.getHigherNumber();
+
     return isChange;
   },
 
