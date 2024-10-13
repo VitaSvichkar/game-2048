@@ -7,9 +7,16 @@ const c = {
   ctxM: null,
   scoreNum: null,
   colorScore: null,
+  modalWrap: null,
+  modal: null,
+  closeModal: null,
+  btnNewGame: null,
+  scoreResult: null,
+  resultGameText: null,
   widthCanvas: 400,
   heightCanvas: 400,
   numberTile: 4,
+  higherNum: 1,
   padding: 0,
   fontSize: 15,
   gap: 10,
@@ -37,12 +44,17 @@ const c = {
     console.log(this.matrixCanvas.width);
 
     this.scoreNum = document.querySelector('.score-num');
-    // this.score.textContent = 'Score';
     console.log(this.scoreNum);
-    // console.log('rjrnvvrjen');
+
+    this.modalWrap = document.querySelector('.modal-wrap');
+    this.modal = document.querySelector('.modal');
+    this.closeModal = document.querySelector('.close-modal');
+    this.btnNewGame = document.querySelector('.btn_new-game');
+    this.scoreResult = document.querySelector('.score-result');
+    console.log(this.scoreResult);
+    this.resultGameText = document.querySelector('.result-game');
 
     this.columns = this.matrixCanvas.width / this.fontSize;
-    // this.columns = this.matrixCanvas.width / 90;
     this.drops = Array(Math.floor(this.columns)).fill(1);
     this.createMatrix();
     this.addTile();
@@ -249,7 +261,7 @@ const c = {
       return;
     } else {
       if (this.checkError()) {
-        window.alert('ты проиграл');
+        this.showResults();
       }
     }
   },
@@ -265,6 +277,8 @@ const c = {
       }
     }
   },
+
+  // COLOR NUMBER
 
   colorNumber(num) {
     switch (num) {
@@ -293,10 +307,12 @@ const c = {
     }
   },
 
+  // GET HIGHER NUMBER
+
   getHigherNumber() {
     const sorting = [...this.arrayValues.flat().sort((a, b) => a - b)];
-    const num = sorting[sorting.length - 1];
-    this.scoreNum.textContent = num;
+    this.higherNum = sorting[sorting.length - 1];
+    this.scoreNum.textContent = this.higherNum;
     return sorting[sorting.length - 1];
   },
 
@@ -347,6 +363,20 @@ const c = {
 
     this.arrayValues = this.filteredArray;
     return isChange;
+  },
+
+  // MODAL WITH RESULTS
+
+  showResults() {
+    this.modalWrap.style.display = 'block';
+    this.scoreResult.textContent = this.higherNum;
+
+    if (this.higherNum === 2048) {
+      this.resultGameText.textContent = 'You won';
+    } else {
+      this.resultGameText.textContent = 'You lost';
+    }
+    this.scoreResult.textContent = this.higherNum;
   },
 
   // KEY
