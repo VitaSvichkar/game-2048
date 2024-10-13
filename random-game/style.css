@@ -5,7 +5,6 @@
 }
 
 body {
-  /* background-color: red; */
   overflow: hidden;
   font-family: 'Space Mono', monospace;
   font-size: 16px;
@@ -15,20 +14,10 @@ body {
 #matrix-canvas {
   width: 100vw;
   height: 100vh;
-  /* background-color: #fff; */
   position: absolute;
   z-index: 1;
   left: 0;
   top: 0;
-}
-
-#canvas {
-  /* border: 1px solid rgba(4, 255, 0, 0.168); */
-  /* background-color: red; */
-  /* position: absolute;
-  top: 50%;
-  left: 50%; */
-  /* z-index: 2; */
 }
 
 .game {
@@ -49,24 +38,15 @@ body {
   color: rgb(255, 245, 202);
   text-transform: uppercase;
   padding: 0 10px;
-  /* background-color: rgba(0, 0, 0, 0.767); */
-  /* border: 1px solid rgba(93, 0, 255, 0.467); */
-}
-
-.score-num {
-  /* color: rgb(48, 226, 211); */
-  /* background-color: red; */
 }
 
 .btn-reset {
-  /* font-size: px; */
   color: rgb(158, 0, 0);
   text-transform: uppercase;
   border: none;
+  outline: none;
   background-color: transparent;
   cursor: pointer;
-  /* background-color: rgba(20, 65, 225, 0.373); */
-  /* color: rgb(197, 191, 27); */
 }
 
 .btn-reset:hover {
@@ -76,7 +56,6 @@ body {
 .wrap {
   position: relative;
   z-index: 3;
-  /* background-color: #fff; */
   max-width: 300px;
 }
 
@@ -145,7 +124,6 @@ input {
 .ico {
   display: block;
   width: 20px;
-  /* background-color: #fff; */
   position: absolute;
   right: 11px;
   bottom: 13px;

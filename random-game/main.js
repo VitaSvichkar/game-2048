@@ -51,10 +51,12 @@ const c = {
     this.modalWrap = document.querySelector('.modal-wrap');
     this.modal = document.querySelector('.modal');
     this.closeModal = document.querySelector('.close-modal');
+
     this.btnNewGame = document.querySelector('.btn_new-game');
     this.btnNewGame.addEventListener('click', this.newGame.bind(this));
     this.btnReset = document.querySelector('.btn-reset');
     this.btnReset.addEventListener('click', this.newGame.bind(this));
+
     this.scoreResult = document.querySelector('.score-result');
     console.log(this.scoreResult);
     this.resultGameText = document.querySelector('.result-game');
@@ -323,7 +325,7 @@ const c = {
   getHigherNumber() {
     const sorting = [...this.arrayValues.flat().sort((a, b) => a - b)];
     this.higherNum = sorting[sorting.length - 1];
-    this.scoreNum.textContent = this.higherNum;
+    this.scoreNum.textContent = this.sum;
     return sorting[sorting.length - 1];
   },
 
@@ -345,6 +347,7 @@ const c = {
         if (row[i] === row[i + 1]) {
           isChange = true;
           row[i] += row[i + 1];
+          this.sum += row[i];
           row[i + 1] = 0;
           i += 1;
         }
@@ -380,8 +383,10 @@ const c = {
   showResults() {
     this.modal.classList.remove('win');
     this.btnNewGame.classList.remove('btn-win');
+
     this.modalWrap.style.display = 'block';
-    this.scoreResult.textContent = this.higherNum;
+    this.scoreResult.textContent = this.sum;
+    // console.log(sum);
     this.scoreResult.style.color = this.colorScore;
 
     if (this.higherNum === 2048) {
@@ -392,13 +397,13 @@ const c = {
     } else {
       this.resultGameText.textContent = 'You lost';
     }
-    this.scoreResult.textContent = this.higherNum;
   },
 
   newGame() {
     this.modalWrap.style.display = 'none';
     this.clearCanvas();
     this.arrayValues = [];
+    this.sum = 0;
     this.createMatrix();
     this.addTile();
     this.addTile();
