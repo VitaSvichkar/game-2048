@@ -15,6 +15,7 @@ const c = {
   scoreResult: null,
   resultGameText: null,
   titleScore: null,
+  // input:null,
   widthCanvas: 400,
   heightCanvas: 400,
   numberTile: 4,
@@ -51,6 +52,7 @@ const c = {
     this.modalWrap = document.querySelector('.modal-wrap');
     this.modal = document.querySelector('.modal');
     this.closeModal = document.querySelector('.close-modal');
+    this.closeModal.addEventListener('click', this.newGame.bind(this));
 
     this.btnNewGame = document.querySelector('.btn_new-game');
     this.btnNewGame.addEventListener('click', this.newGame.bind(this));
