@@ -106,7 +106,7 @@ const c = {
     const totalPad = this.gap * 2;
     const widthTile =
       (this.widthCanvas - totalGap - totalPad) / this.numberTile;
-    console.log(widthTile);
+    // console.log(widthTile);
     const heightTile = widthTile;
     let x = 0;
     let y = 0;
@@ -157,9 +157,6 @@ const c = {
       }
       this.arrayValues[row][col] = randomValue;
     }
-    // else {
-    //   this.checkError();
-    // }
   },
 
   // ERROR
@@ -181,10 +178,16 @@ const c = {
 
   checkMatch() {
     this.isMatch = false;
+    if (!this.isZero) {
+      console.log('есть нули я не могу проверить дальше');
+      return;
+    }
+    console.log('смогла запуститься проверка , проверяю на совпадение');
     for (let i = 0; i < this.arrayValues.length; i += 1) {
       for (let j = 0; j < this.arrayValues[i].length - 1; j += 1) {
         if (this.arrayValues[i][j] === this.arrayValues[i][j + 1]) {
           this.isMatch = true;
+          console.log(this.arrayValues[i][j]);
           break;
         }
       }
@@ -192,27 +195,6 @@ const c = {
         break;
       }
     }
-  },
-
-  checkError() {
-    this.checkZero();
-    if (!this.isZero) {
-      return;
-    }
-    this.checkMatch();
-    if (!this.isMatch) {
-      for (let i = 0; i < 2; i += 1) {
-        this.transposeMatrix();
-        this.checkMatch();
-        if (this.isMatch) {
-          break;
-        }
-      }
-      if (!this.isMatch && this.isZero) {
-        return true;
-      }
-    }
-    return false;
   },
 
   // GET RANDOM NUMBER
@@ -264,17 +246,44 @@ const c = {
       this.filteredArray = this.filteredArray.map((row) => row.reverse());
       this.transposeMatrix();
     }
+    console.log('is move ' + isMove);
 
     if (isMove) {
-      if (!this.checkError()) {
+      this.checkZero();
+      if (!this.isZero) {
         this.addTile();
         this.drawTile();
+        console.log('ноль есть, его уже зарисовали');
       }
-    } else if (!this.checkError()) {
-      return;
     } else {
-      if (this.checkError()) {
-        this.showResults();
+      this.checkZero();
+      if (!this.isZero) {
+        console.log(
+          'движения не было, но нули есть, значит клацни в другую сторону'
+        );
+        return;
+      } else {
+        console.log('должна запуститься проверка если нулей нет');
+        this.checkMatch();
+        console.log('запустили проверку');
+        console.log('is match ' + this.isMatch);
+        if (!this.isMatch) {
+          console.log('is match ' + this.isMatch);
+          console.log('cовпадений нет,вызов трансонирования');
+          this.transposeMatrix();
+          this.checkMatch();
+          this.transposeMatrix();
+          if (!this.isMatch) {
+            console.log('ты проиграл');
+            this.showResults();
+          } else {
+            console.log('совпадения есть');
+            return;
+          }
+        } else {
+          console.log(this.isMatch);
+          console.log('совпадение есть без трансформации');
+        }
       }
     }
   },
