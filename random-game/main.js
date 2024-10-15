@@ -15,7 +15,9 @@ const c = {
   scoreResult: null,
   resultGameText: null,
   titleScore: null,
-  // input:null,
+  input: null,
+  ico: null,
+  name: null,
   widthCanvas: 400,
   heightCanvas: 400,
   numberTile: 4,
@@ -45,6 +47,10 @@ const c = {
     this.matrixCanvas.width = window.innerWidth;
     this.matrixCanvas.height = window.innerHeight;
     console.log(this.matrixCanvas.width);
+
+    this.input = document.getElementById('name');
+    this.ico = document.querySelector('.ico');
+    this.ico.addEventListener('click', this.getName.bind(this));
 
     this.scoreNum = document.querySelector('.score-num');
     console.log(this.scoreNum);
@@ -250,6 +256,7 @@ const c = {
     }
     console.log('is move ' + isMove);
 
+    // checks
     if (isMove) {
       this.checkZero();
       if (!this.isZero) {
@@ -265,28 +272,32 @@ const c = {
         );
         return;
       } else {
-        console.log('должна запуститься проверка если нулей нет');
-        this.checkMatch();
-        console.log('запустили проверку');
-        console.log('is match ' + this.isMatch);
-        if (!this.isMatch) {
-          console.log('is match ' + this.isMatch);
-          console.log('cовпадений нет,вызов трансонирования');
-          this.transposeMatrix();
-          this.checkMatch();
-          this.transposeMatrix();
-          if (!this.isMatch) {
-            console.log('ты проиграл');
-            this.showResults();
-          } else {
-            console.log('совпадения есть');
-            return;
-          }
-        } else {
-          console.log(this.isMatch);
-          console.log('совпадение есть без трансформации');
-        }
+        this.checkError();
       }
+    }
+  },
+
+  checkError() {
+    console.log('должна запуститься проверка если нулей нет');
+    this.checkMatch();
+    console.log('запустили проверку');
+    console.log('is match ' + this.isMatch);
+    if (!this.isMatch) {
+      console.log('is match ' + this.isMatch);
+      console.log('cовпадений нет,вызов трансонирования');
+      this.transposeMatrix();
+      this.checkMatch();
+      this.transposeMatrix();
+      if (!this.isMatch) {
+        console.log('ты проиграл');
+        this.showResults();
+      } else {
+        console.log('совпадения есть');
+        return;
+      }
+    } else {
+      console.log(this.isMatch);
+      console.log('совпадение есть без трансформации');
     }
   },
 
@@ -419,6 +430,14 @@ const c = {
     this.addTile();
     this.addTile();
     this.drawTile();
+  },
+
+  //  GET NAME
+
+  getName() {
+    this.name = this.input.value;
+    console.log(this.name);
+    this.input.value = '';
   },
 
   // KEY
