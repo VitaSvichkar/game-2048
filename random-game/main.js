@@ -15,6 +15,7 @@ const c = {
   scoreResult: null,
   resultGameText: null,
   titleScore: null,
+  label: null,
   input: null,
   ico: null,
   name: null,
@@ -33,6 +34,7 @@ const c = {
   filteredArray: [],
   isMatch: false,
   isZero: true,
+  data: [],
 
   // START GAME
 
@@ -52,12 +54,6 @@ const c = {
     this.matrixCanvas.height = window.innerHeight;
     console.log(this.matrixCanvas.width);
 
-    // TABLE
-
-    this.input = document.getElementById('name');
-    this.ico = document.querySelector('.ico');
-    this.ico.addEventListener('click', this.getName.bind(this));
-
     // GAME
 
     this.scoreNum = document.querySelector('.score-num');
@@ -75,6 +71,10 @@ const c = {
     this.modal = document.querySelector('.modal');
     this.closeModal = document.querySelector('.close-modal');
     this.closeModal.addEventListener('click', this.newGame.bind(this));
+    this.label = document.querySelector('.inp-label');
+    this.input = document.getElementById('name');
+    this.ico = document.querySelector('.ico');
+    this.ico.addEventListener('click', this.getName.bind(this));
 
     this.columns = this.matrixCanvas.width / this.fontSize;
     this.drops = Array(Math.floor(this.columns)).fill(1);
@@ -443,8 +443,13 @@ const c = {
   getName() {
     this.name = this.input.value;
     console.log(this.name);
+    console.log(this.sum);
     this.input.value = '';
+    this.label.style.display = 'none';
+    this.data.push({ [this.name]: this.sum });
   },
+
+  saveDataLocaleStorage(name, sum) {},
 
   // KEY
 
