@@ -37,10 +37,14 @@ const c = {
   // START GAME
 
   init() {
+    // GAME CANVAS
+
     this.canvas = document.getElementById('canvas');
     this.canvas.width = this.widthCanvas;
     this.canvas.height = this.heightCanvas;
     this.ctx = this.canvas.getContext('2d');
+
+    // MATRIX CANVAS
 
     this.matrixCanvas = document.getElementById('matrix-canvas');
     this.ctxM = this.matrixCanvas.getContext('2d');
@@ -48,27 +52,29 @@ const c = {
     this.matrixCanvas.height = window.innerHeight;
     console.log(this.matrixCanvas.width);
 
+    // TABLE
+
     this.input = document.getElementById('name');
     this.ico = document.querySelector('.ico');
     this.ico.addEventListener('click', this.getName.bind(this));
 
-    this.scoreNum = document.querySelector('.score-num');
-    console.log(this.scoreNum);
+    // GAME
 
+    this.scoreNum = document.querySelector('.score-num');
+    this.btnReset = document.querySelector('.btn-reset');
+    this.btnReset.addEventListener('click', this.newGame.bind(this));
+
+    // MODAL
+
+    this.scoreResult = document.querySelector('.score-result');
+    this.resultGameText = document.querySelector('.result-game');
+    this.titleScore = document.querySelector('.modal-score');
+    this.btnNewGame = document.querySelector('.btn_new-game');
+    this.btnNewGame.addEventListener('click', this.newGame.bind(this));
     this.modalWrap = document.querySelector('.modal-wrap');
     this.modal = document.querySelector('.modal');
     this.closeModal = document.querySelector('.close-modal');
     this.closeModal.addEventListener('click', this.newGame.bind(this));
-
-    this.btnNewGame = document.querySelector('.btn_new-game');
-    this.btnNewGame.addEventListener('click', this.newGame.bind(this));
-    this.btnReset = document.querySelector('.btn-reset');
-    this.btnReset.addEventListener('click', this.newGame.bind(this));
-
-    this.scoreResult = document.querySelector('.score-result');
-    console.log(this.scoreResult);
-    this.resultGameText = document.querySelector('.result-game');
-    this.titleScore = document.querySelector('.modal-score');
 
     this.columns = this.matrixCanvas.width / this.fontSize;
     this.drops = Array(Math.floor(this.columns)).fill(1);
@@ -103,7 +109,6 @@ const c = {
     });
 
     setTimeout(() => requestAnimationFrame(() => this.animateMatrix()), 60);
-    // requestAnimationFrame(() => this.animateMatrix());
   },
 
   // DRAW TILE
@@ -114,11 +119,11 @@ const c = {
     const totalPad = this.gap * 2;
     const widthTile =
       (this.widthCanvas - totalGap - totalPad) / this.numberTile;
-    // console.log(widthTile);
     const heightTile = widthTile;
     let x = 0;
     let y = 0;
     const highNum = this.getHigherNumber();
+    // create tile
     this.arrayValues.forEach((row, indY) => {
       y = indY * (widthTile + this.gap) + this.gap;
       row.forEach((val, indX) => {
@@ -155,7 +160,6 @@ const c = {
   addTile() {
     let row = this.getRandom();
     let col = this.getRandom();
-
     const randomValue = Math.random() >= 0.5 ? 2 : 4;
 
     if (this.arrayValues.flat().some((val) => val === 0)) {
@@ -254,9 +258,9 @@ const c = {
       this.filteredArray = this.filteredArray.map((row) => row.reverse());
       this.transposeMatrix();
     }
-    console.log('is move ' + isMove);
 
     // checks
+
     if (isMove) {
       this.checkZero();
       if (!this.isZero) {
@@ -420,6 +424,8 @@ const c = {
       this.resultGameText.textContent = 'You lost';
     }
   },
+
+  // NEW GAME
 
   newGame() {
     this.modalWrap.style.display = 'none';
