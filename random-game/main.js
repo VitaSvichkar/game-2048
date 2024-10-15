@@ -74,7 +74,10 @@ const c = {
     this.label = document.querySelector('.inp-label');
     this.input = document.getElementById('name');
     this.ico = document.querySelector('.ico');
-    this.ico.addEventListener('click', this.getName.bind(this));
+    this.ico.addEventListener('click', () => {
+      this.getName();
+      this.saveDataLocaleStorage();
+    });
 
     this.columns = this.matrixCanvas.width / this.fontSize;
     this.drops = Array(Math.floor(this.columns)).fill(1);
@@ -429,6 +432,7 @@ const c = {
 
   newGame() {
     this.modalWrap.style.display = 'none';
+    this.label.style.display = 'block';
     this.clearCanvas();
     this.arrayValues = [];
     this.sum = 0;
@@ -449,7 +453,10 @@ const c = {
     this.data.push({ [this.name]: this.sum });
   },
 
-  saveDataLocaleStorage(name, sum) {},
+  saveDataLocaleStorage() {
+    const strArray = JSON.stringify(this.data);
+    localStorage.setItem('records', strArray);
+  },
 
   // KEY
 
