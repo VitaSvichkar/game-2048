@@ -475,7 +475,15 @@ const c = {
     this.updateTable();
   },
 
+  // UPDATE TABLE
+
   updateTable() {
+    this.table.innerHTML = `
+    <caption class="caption">TOP-10</caption>
+        <tr>
+          <th>Name</th>
+          <th class="table-score">Score</th>
+        </tr>`;
     this.data.forEach(({ name, sum }) => {
       const tr = document.createElement('tr');
       this.tdName = document.createElement('td');
@@ -484,9 +492,9 @@ const c = {
       this.tdScore.textContent = sum;
       tr.append(this.tdName, this.tdScore);
       this.table.append(tr);
-      console.log(name, sum);
     });
   },
+
   // KEY
 
   move(e) {
