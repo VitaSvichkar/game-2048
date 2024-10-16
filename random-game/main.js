@@ -484,6 +484,7 @@ const c = {
           <th>Name</th>
           <th class="table-score">Score</th>
         </tr>`;
+    this.sorting();
     this.data.forEach(({ name, sum }) => {
       const tr = document.createElement('tr');
       this.tdName = document.createElement('td');
@@ -493,6 +494,13 @@ const c = {
       tr.append(this.tdName, this.tdScore);
       this.table.append(tr);
     });
+  },
+
+  // SORT
+
+  sorting() {
+    this.data.sort((a, b) => b.sum - a.sum);
+    console.log(this.data);
   },
 
   // KEY
