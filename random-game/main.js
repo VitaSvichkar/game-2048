@@ -457,6 +457,7 @@ const c = {
     this.input.value = '';
     this.label.style.display = 'none';
     this.data.push({ name: this.name, sum: this.sum });
+    // this.sorting();
     this.saveDataLocaleStorage();
     this.updateTable();
   },
@@ -500,6 +501,7 @@ const c = {
 
   sorting() {
     this.data.sort((a, b) => b.sum - a.sum);
+    this.data.splice(10);
     console.log(this.data);
   },
 
