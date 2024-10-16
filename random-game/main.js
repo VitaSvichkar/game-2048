@@ -19,6 +19,9 @@ const c = {
   input: null,
   ico: null,
   name: null,
+  table: null,
+  tdName: null,
+  tdScore: null,
   widthCanvas: 400,
   heightCanvas: 400,
   numberTile: 4,
@@ -32,9 +35,9 @@ const c = {
   drops: [],
   arrayValues: [],
   filteredArray: [],
+  data: [],
   isMatch: false,
   isZero: true,
-  data: [],
 
   // START GAME
 
@@ -53,6 +56,10 @@ const c = {
     this.matrixCanvas.width = window.innerWidth;
     this.matrixCanvas.height = window.innerHeight;
     console.log(this.matrixCanvas.width);
+
+    // TABLE
+
+    this.table = document.querySelector('.table');
 
     // GAME
 
@@ -76,11 +83,12 @@ const c = {
     this.ico = document.querySelector('.ico');
     this.ico.addEventListener('click', () => {
       this.getName();
-      this.saveDataLocaleStorage();
+      // this.saveDataLocaleStorage();
     });
 
     this.columns = this.matrixCanvas.width / this.fontSize;
     this.drops = Array(Math.floor(this.columns)).fill(1);
+    this.showData();
     this.createMatrix();
     this.addTile();
     this.addTile();
@@ -446,18 +454,39 @@ const c = {
 
   getName() {
     this.name = this.input.value;
-    console.log(this.name);
-    console.log(this.sum);
     this.input.value = '';
     this.label.style.display = 'none';
-    this.data.push({ [this.name]: this.sum });
+    this.data.push({ name: this.name, sum: this.sum });
+    this.saveDataLocaleStorage();
+    this.updateTable();
   },
+
+  // LOCALE STORAGE
 
   saveDataLocaleStorage() {
-    const strArray = JSON.stringify(this.data);
-    localStorage.setItem('records', strArray);
+    localStorage.setItem('records', JSON.stringify(this.data));
   },
 
+  showData() {
+    const getData = localStorage.getItem('records');
+    if (getData) {
+      this.data = JSON.parse(getData);
+    }
+    this.updateTable();
+  },
+
+  updateTable() {
+    this.data.forEach(({ name, sum }) => {
+      const tr = document.createElement('tr');
+      this.tdName = document.createElement('td');
+      this.tdScore = document.createElement('td');
+      this.tdName.textContent = name;
+      this.tdScore.textContent = sum;
+      tr.append(this.tdName, this.tdScore);
+      this.table.append(tr);
+      console.log(name, sum);
+    });
+  },
   // KEY
 
   move(e) {
