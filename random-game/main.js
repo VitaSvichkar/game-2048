@@ -81,10 +81,7 @@ const c = {
     this.label = document.querySelector('.inp-label');
     this.input = document.getElementById('name');
     this.ico = document.querySelector('.ico');
-    this.ico.addEventListener('click', () => {
-      this.getName();
-      // this.saveDataLocaleStorage();
-    });
+    this.ico.addEventListener('click', this.getName.bind(this));
 
     this.columns = this.matrixCanvas.width / this.fontSize;
     this.drops = Array(Math.floor(this.columns)).fill(1);
@@ -126,7 +123,7 @@ const c = {
 
   drawTile() {
     this.clearCanvas();
-    const totalGap = this.gap * 3;
+    const totalGap = this.gap * this.numberTile - 1;
     const totalPad = this.gap * 2;
     const widthTile =
       (this.widthCanvas - totalGap - totalPad) / this.numberTile;
@@ -145,7 +142,7 @@ const c = {
             this.scoreNum.style.color = this.colorScore;
           }
           this.ctx.strokeStyle = this.colorNumber(val);
-          this.ctx.lineWidth = '1px';
+          this.ctx.lineWidth = 1;
           this.ctx.strokeRect(x, y, widthTile, heightTile);
           this.ctx.font = '40px Arial';
           this.ctx.fillStyle = this.colorNumber(val);
