@@ -72,7 +72,10 @@ const c = {
     this.resultGameText = document.querySelector('.result-game');
     this.titleScore = document.querySelector('.modal-score');
     this.btnNewGame = document.querySelector('.btn_new-game');
-    this.btnNewGame.addEventListener('click', this.newGame.bind(this));
+    this.btnNewGame.addEventListener('click', () => {
+      this.getName();
+      this.newGame();
+    });
     this.modalWrap = document.querySelector('.modal-wrap');
     this.modal = document.querySelector('.modal');
     this.closeModal = document.querySelector('.close-modal');
@@ -81,6 +84,12 @@ const c = {
     this.input = document.getElementById('name');
     this.ico = document.querySelector('.ico');
     this.ico.addEventListener('click', this.getName.bind(this));
+    this.input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        this.getName();
+        this.newGame();
+      }
+    });
 
     this.columns = this.matrixCanvas.width / this.fontSize;
     this.drops = Array(Math.floor(this.columns)).fill(1);
@@ -396,6 +405,7 @@ const c = {
   // MODAL WITH RESULTS
 
   showResults() {
+    this.input.focus();
     this.modal.classList.remove('win');
     this.btnNewGame.classList.remove('btn-win');
 
@@ -406,10 +416,10 @@ const c = {
     if (this.higherNum === 2048) {
       this.modal.classList.add('win');
       this.btnNewGame.classList.add('btn-win');
-      this.resultGameText.textContent = 'You won';
+      this.resultGameText.textContent = `You won`;
       this.titleScore.style.backgroundScore = 'rgb(19, 167, 17)';
     } else {
-      this.resultGameText.textContent = 'You lost';
+      this.resultGameText.textContent = `You lost`;
     }
   },
 
@@ -417,7 +427,9 @@ const c = {
 
   newGame() {
     this.modalWrap.style.display = 'none';
-    this.label.style.display = 'block';
+    if (!this.name) {
+      this.label.style.display = 'block';
+    }
     this.clearCanvas();
     this.arrayValues = [];
     this.sum = 0;
@@ -430,7 +442,13 @@ const c = {
   //  GET NAME
 
   getName() {
-    this.name = this.input.value;
+    let curName = this.input.value.trim();
+    if (curName.length > 0) {
+      this.name = curName;
+    } else {
+      curName = this.name;
+      console.log(curName, this.name);
+    }
     this.input.value = '';
     this.label.style.display = 'none';
     this.data.push({ name: this.name, sum: this.sum });
