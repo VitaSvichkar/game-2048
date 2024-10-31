@@ -39,11 +39,19 @@ const c = {
   isMatch: false,
   isZero: true,
   audio: null,
+  audioClick: null,
+  audioError: null,
+  audioBtn: null,
+  audioWin: null,
 
   // START GAME
 
   init() {
-    this.audio = new Audio('./audioClick.mp3');
+    this.audioClick = new Audio('./audio/audioClick.mp3');
+    this.audio = new Audio('./audio/audioTile.mp3');
+    this.audioError = new Audio('./audio/audioError.mp3');
+    this.audioBtn = new Audio('./audio/audioBtn.mp3');
+    this.audioWin = new Audio('./audio/audioWin.mp3');
     // GAME CANVAS
 
     this.canvas = document.getElementById('canvas');
@@ -80,7 +88,12 @@ const c = {
       this.getName();
       this.newGame();
     });
+
     this.modalWrap = document.querySelector('.modal-wrap');
+    this.modalWrap.addEventListener('keyup', (e) => {
+      e.stopPropagation();
+    });
+
     this.modal = document.querySelector('.modal');
     this.closeModal = document.querySelector('.close-modal');
     this.closeModal.addEventListener('click', this.newGame.bind(this));
@@ -128,7 +141,7 @@ const c = {
       this.drops[i]++;
     });
 
-    setTimeout(() => requestAnimationFrame(() => this.animateMatrix()), 60);
+    setTimeout(() => requestAnimationFrame(() => this.animateMatrix()), 75);
   },
 
   // DRAW TILE
@@ -412,17 +425,18 @@ const c = {
     this.input.focus();
     this.modal.classList.remove('win');
     this.btnNewGame.classList.remove('btn-win');
-
     this.modalWrap.style.display = 'block';
     this.scoreResult.textContent = this.sum;
     this.scoreResult.style.color = this.colorScore;
 
     if (this.higherNum === 2048) {
+      this.audioWin.play();
       this.modal.classList.add('win');
       this.btnNewGame.classList.add('btn-win');
       this.resultGameText.textContent = `You won`;
       this.titleScore.style.backgroundScore = 'rgb(19, 167, 17)';
     } else {
+      this.audioError.play();
       this.resultGameText.textContent = `You lost`;
     }
   },
@@ -430,6 +444,8 @@ const c = {
   // NEW GAME
 
   newGame() {
+    this.audio.currentTime = 0;
+    this.audioClick.play();
     this.modalWrap.style.display = 'none';
     if (!this.name) {
       this.label.style.display = 'block';
@@ -446,6 +462,7 @@ const c = {
   //  GET NAME
 
   getName() {
+    this.audioBtn.play();
     let curName = this.input.value.trim();
     if (curName.length > 0) {
       this.name = curName;
@@ -516,7 +533,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // CLICK
-
 document.addEventListener('keyup', c.move.bind(c));
 
 window.addEventListener('resize', () => {
