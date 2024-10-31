@@ -38,10 +38,12 @@ const c = {
   data: [],
   isMatch: false,
   isZero: true,
+  audio: null,
 
   // START GAME
 
   init() {
+    this.audio = new Audio('./audioClick.mp3');
     // GAME CANVAS
 
     this.canvas = document.getElementById('canvas');
@@ -233,6 +235,7 @@ const c = {
       }
     }
   },
+  isMove: false,
 
   // CHANGE MATRIX
 
@@ -268,13 +271,14 @@ const c = {
     }
 
     // checks
-
     if (isMove) {
       this.checkZero();
       if (!this.isZero) {
         this.addTile();
         this.drawTile();
         console.log('ноль есть, его уже зарисовали');
+        this.audio.currentTime = 0;
+        this.audio.play();
       }
     } else {
       this.checkZero();
@@ -505,6 +509,16 @@ const c = {
   // KEY
 
   move(e) {
+    // this.checkZero();
+    // if (!this.isZero) {
+    //   this.isMatch = true;
+    // }
+    // this.checkError();
+    // this.checkZero();
+    // this.checkMatch();
+    // if (this.isZero && !this.isMatch) {
+    //   this.showResults();
+    // }
     this.changeMatrix(e);
   },
 };
@@ -517,7 +531,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // CLICK
 
-document.addEventListener('keydown', c.move.bind(c));
+document.addEventListener('keyup', c.move.bind(c));
 
 window.addEventListener('resize', () => {
   // c.matrixCanvas.width = window.innerWidth;
