@@ -2,6 +2,8 @@ const c = {
   ctx: null,
   canvas: null,
   matrixCanvas: null,
+  matrixWidth: 0,
+  matrixHeight: 0,
   ctxM: null,
   scoreNum: null,
   colorScore: null,
@@ -53,8 +55,10 @@ const c = {
 
     this.matrixCanvas = document.getElementById('matrix-canvas');
     this.ctxM = this.matrixCanvas.getContext('2d');
-    this.matrixCanvas.width = window.innerWidth;
-    this.matrixCanvas.height = window.innerHeight;
+    this.matrixWidth = window.innerWidth;
+    this.matrixHeight = window.innerHeight;
+    this.matrixCanvas.width = this.matrixWidth;
+    this.matrixCanvas.height = this.matrixHeight;
 
     // TABLE
 
@@ -105,7 +109,7 @@ const c = {
 
   animateMatrix() {
     this.ctxM.fillStyle = 'rgba(0, 0, 0, 0.1)';
-    this.ctxM.fillRect(0, 0, 1900, 1000);
+    this.ctxM.fillRect(0, 0, this.matrixWidth, this.matrixHeight);
     this.ctxM.fillStyle = 'green';
     this.ctxM.font = `${this.fontSize}px 'Space Mono'`;
 
