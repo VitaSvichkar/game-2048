@@ -148,7 +148,7 @@ const c = {
 
   drawTile() {
     this.clearCanvas();
-    const totalGap = this.gap * this.numberTile - 1;
+    const totalGap = this.gap * (this.numberTile - 1);
     const totalPad = this.gap * 2;
     const widthTile =
       (this.widthCanvas - totalGap - totalPad) / this.numberTile;
@@ -255,7 +255,6 @@ const c = {
       }
     }
   },
-  isMove: false,
 
   // CHANGE MATRIX
 
