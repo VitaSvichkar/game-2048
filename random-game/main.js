@@ -156,28 +156,56 @@ const c = {
     let x = 0;
     let y = 0;
     const highNum = this.getHigherNumber();
-    // create tile
+    const radius = 20;
+
     this.arrayValues.forEach((row, indY) => {
       y = indY * (widthTile + this.gap) + this.gap;
       row.forEach((val, indX) => {
         x = indX * (widthTile + this.gap) + this.gap;
+
+        // create tile
+        this.createTile(x, y, widthTile, heightTile, radius);
+        this.ctx.fillStyle = '#131313';
+        this.ctx.fill();
+
         if (val !== 0) {
           if (val === highNum) {
             this.colorScore = this.colorNumber(val);
             this.scoreNum.style.color = this.colorScore;
           }
+          this.createTile(x, y, widthTile, heightTile, radius);
           this.ctx.strokeStyle = this.colorNumber(val);
-          this.ctx.lineWidth = 1;
-          this.ctx.strokeRect(x, y, widthTile, heightTile);
-          this.ctx.font = '40px Arial';
+          this.ctx.lineWidth = 2;
+          this.ctx.stroke();
+          this.ctx.font = '40px Space Mono';
           this.ctx.fillStyle = this.colorNumber(val);
-
           this.ctx.textAlign = 'center';
           this.ctx.textBaseline = 'middle';
           this.ctx.fillText(`${val}`, x + widthTile / 2, y + heightTile / 2);
         }
       });
     });
+  },
+
+  // CREATE TILE
+
+  createTile(x, y, width, height, radius) {
+    this.ctx.beginPath();
+    this.ctx.moveTo(x + radius, y);
+    this.ctx.lineTo(x + width - radius, y);
+    this.ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+    this.ctx.lineTo(x + width, y + height - radius);
+    this.ctx.quadraticCurveTo(
+      x + width,
+      y + height,
+      x + width - radius,
+      y + height
+    );
+    this.ctx.lineTo(x + radius, y + height);
+    this.ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+    this.ctx.lineTo(x, y + radius);
+    this.ctx.quadraticCurveTo(x, y, x + radius, y);
+    this.ctx.closePath();
   },
 
   // CLEAR CANVAS
