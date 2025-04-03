@@ -6,22 +6,9 @@
 
 body {
   width: 100%;
-  background-color: #fff;
   overflow: hidden;
   font-family: 'Space Mono', monospace;
   font-size: 16px;
-  color: antiquewhite;
-}
-
-/* ANIMATION MATRIX */
-
-#matrix-canvas {
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  z-index: 1;
-  left: 0;
-  top: 0;
 }
 
 /* GAME */
@@ -32,8 +19,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.697);
-  border: 1px solid rgba(0, 255, 183, 0.289);
+  border: 1px solid rgba(76, 142, 123, 0.621);
 }
 
 .score {
@@ -41,7 +27,7 @@ body {
   justify-content: space-between;
   margin-bottom: 20px;
   font-size: 30px;
-  color: rgb(255, 245, 202);
+  color: rgb(37, 37, 37);
   text-transform: uppercase;
   padding: 0 10px;
 }
@@ -63,28 +49,27 @@ body {
   position: relative;
   z-index: 3;
   max-width: 300px;
+  display: flex;
+  justify-content: center;
 }
 
 /* TABLE  */
 
 .record {
   margin-top: 10px;
-  color: rgb(79, 211, 31);
-  background-color: rgba(0, 0, 0, 0.437);
-  border: 1px solid rgb(79, 211, 31);
 }
 
 .table,
 td,
 th {
-  border-bottom: 1px solid rgb(37, 58, 12);
+  border-bottom: 1px solid rgb(69, 68, 68);
   border-collapse: collapse;
 }
 
 .table {
   text-align: left;
   table-layout: fixed;
-  width: 100%;
+  color: rgb(96, 100, 175);
 }
 
 td,
@@ -93,20 +78,21 @@ th {
   text-overflow: ellipsis;
   white-space: nowrap;
   height: 30px;
-  padding-left: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
-.table-score {
-  width: 100px;
+tr td:first-child {
+  border-right: 1px solid black;
 }
 
 .caption {
-  color: antiquewhite;
-  background-color: rgba(113, 247, 139, 0.315);
+  color: rgb(0, 0, 0);
+  font-weight: bold;
 }
 
 th {
-  color: antiquewhite;
+  color: rgb(0, 0, 0);
   font-weight: 100;
 }
 
@@ -119,6 +105,7 @@ th {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  color: beige;
 }
 
 .modal {
@@ -146,7 +133,6 @@ th {
   font-size: 25px;
   text-align: center;
   cursor: pointer;
-  /* background-color: red; */
 }
 
 .close-modal:hover {
@@ -165,25 +151,18 @@ th {
 .modal-score {
   text-align: center;
   text-transform: uppercase;
-  /* margin-bottom: 10px; */
   font-size: 30px;
   background-color: rgba(160, 0, 0, 0.382);
   padding: 0 10px;
+  margin-bottom: 10px;
 }
 
 .score-result {
   font-weight: bold;
 }
 
-label {
-  position: relative;
-  color: #ff9d00;
-  text-align: right;
-}
-
 input {
   padding: 0 10px;
-  /* background-color: rgba(113, 247, 126, 0.315); */
   background-color: transparent;
   border: 1px solid rgba(255, 255, 255, 0.475);
   outline: none;
@@ -250,8 +229,7 @@ input {
   width: 100%;
   z-index: 3;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.737);
-  border-top: 1px solid rgba(99, 6, 51, 0.332);
+  background-color: #fd9c4ed1;
 }
 
 footer a {
@@ -268,12 +246,8 @@ footer a:hover {
 }
 
 .year:hover {
-  color: rgb(255, 184, 69);
+  color: rgb(255, 255, 255);
   transform: rotate(360deg);
-}
-
-.logo-git {
-  filter: invert();
 }
 
 footer {
