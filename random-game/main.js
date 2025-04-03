@@ -70,7 +70,6 @@ const c = {
     this.btnNewGame = document.querySelector('.btn_new-game');
     this.btnNewGame.addEventListener('click', () => {
       this.getName();
-      this.newGame();
     });
 
     this.modalWrap = document.querySelector('.modal-wrap');
@@ -80,15 +79,13 @@ const c = {
 
     this.modal = document.querySelector('.modal');
     this.closeModal = document.querySelector('.close-modal');
-    this.closeModal.addEventListener('click', this.newGame.bind(this));
+    this.closeModal.addEventListener('click', this.getName.bind(this));
     this.label = document.querySelector('.inp-label');
     this.input = document.getElementById('name');
     this.ico = document.querySelector('.ico');
-    this.ico.addEventListener('click', this.getName.bind(this));
     this.input.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         this.getName();
-        this.newGame();
       }
     });
 
@@ -455,6 +452,7 @@ const c = {
     this.lastName = this.name;
     this.saveDataLocaleStorage();
     this.updateTable();
+    this.newGame();
   },
 
   // LOCALE STORAGE
