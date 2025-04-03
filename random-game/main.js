@@ -120,7 +120,7 @@ const c = {
 
         // create tile
         this.createTile(x, y, widthTile, heightTile, radius);
-        this.ctx.fillStyle = '#131313';
+        this.ctx.fillStyle = 'rgb(239, 239, 239)';
         this.ctx.fill();
 
         if (val !== 0) {
@@ -129,11 +129,11 @@ const c = {
             this.scoreNum.style.color = this.colorScore;
           }
           this.createTile(x, y, widthTile, heightTile, radius);
-          this.ctx.strokeStyle = this.colorNumber(val);
-          this.ctx.lineWidth = 2;
-          this.ctx.stroke();
-          this.ctx.font = '40px Space Mono';
           this.ctx.fillStyle = this.colorNumber(val);
+          this.ctx.fill();
+
+          this.ctx.font = '40px Space Mono';
+          this.ctx.fillStyle = 'white';
           this.ctx.textAlign = 'center';
           this.ctx.textBaseline = 'middle';
           this.ctx.fillText(`${val}`, x + widthTile / 2, y + heightTile / 2);
@@ -167,7 +167,7 @@ const c = {
 
   clearCanvas() {
     this.ctx.clearRect(0, 0, this.widthCanvas, this.heightCanvas);
-    this.ctx.fillStyle = 'black';
+    this.ctx.fillStyle = 'rgb(255, 255, 255)';
     this.ctx.fillRect(0, 0, this.widthCanvas, this.heightCanvas);
   },
 
@@ -319,27 +319,27 @@ const c = {
   colorNumber(num) {
     switch (num) {
       case 4:
-        return '#66FF66';
+        return '#264653';
       case 8:
-        return '#00FFFF';
+        return '#2A9D8F';
       case 16:
-        return '#9933FF';
+        return '#E9C46A';
       case 32:
-        return '#FFFF00';
+        return '#F4A261';
       case 64:
-        return '#FF80E0';
+        return '#E76F51';
       case 128:
-        return '#FF33CC';
+        return '#D62828';
       case 256:
-        return '#FF6666';
+        return '#9D0208';
       case 512:
-        return '#0000FF';
+        return '#6A040F';
       case 1024:
-        return '#800080';
+        return '#370617';
       case 2048:
-        return '#FFFFFF';
+        return '#03071E';
       default:
-        return '#ABADCA';
+        return '#0B090A';
     }
   },
 
