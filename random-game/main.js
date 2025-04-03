@@ -190,18 +190,8 @@ const c = {
   // ERROR
 
   checkZero() {
-    this.isZero = true;
-    for (let k = 0; k < this.arrayValues.length; k += 1) {
-      for (let l = 0; l < this.arrayValues[k].length; l += 1) {
-        if (this.arrayValues[k][l] === 0) {
-          this.isZero = false;
-          break;
-        }
-      }
-      if (!this.isZero) {
-        break;
-      }
-    }
+    const isZero = this.arrayValues.flat().some((el) => el === 0);
+    this.isZero = isZero;
   },
 
   checkMatch() {
