@@ -259,20 +259,17 @@ const c = {
     // checks
     if (isMove) {
       this.checkZero();
-      if (!this.isZero) {
+      if (this.isZero) {
         this.addTile();
         this.drawTile();
         this.audio.currentTime = 0;
         this.audio.play();
-      }
-    } else {
-      this.checkZero();
-      if (!this.isZero) {
-        return;
-      } else {
-        this.checkPossibleMoves();
+        this.checkGameOver();
       }
     }
+    //  else {
+    //   this.checkZero();
+    // }
   },
 
   checkPossibleMoves() {
@@ -281,6 +278,17 @@ const c = {
       this.transposeMatrix();
       this.hasAdjacentMatches();
       this.transposeMatrix();
+      if (!this.isMatch) {
+        this.showResults();
+      }
+    }
+  },
+
+  checkGameOver() {
+    this.checkZero();
+    if (!this.isZero) {
+      this.checkPossibleMoves();
+
       if (!this.isMatch) {
         this.showResults();
       }
