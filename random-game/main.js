@@ -28,6 +28,7 @@ const c = {
   arrayValues: [],
   filteredArray: [],
   data: [],
+  lastName: null,
   isMatch: false,
   isZero: true,
   audio: null,
@@ -445,15 +446,20 @@ const c = {
   getName() {
     this.audioBtn.play();
     let curName = this.input.value.trim();
+
     if (curName.length > 0) {
       this.name = curName;
     } else {
-      curName = this.name;
-      console.log(curName, this.name);
+      const getLastName = localStorage.getItem('lastName');
+      if (getLastName) {
+        this.name = JSON.parse(getLastName);
+      } else {
+        this.name = 'noName :)';
+      }
     }
     this.input.value = '';
-    this.label.style.display = 'none';
     this.data.push({ name: this.name, sum: this.sum });
+    this.lastName = this.name;
     this.saveDataLocaleStorage();
     this.updateTable();
   },
@@ -462,6 +468,7 @@ const c = {
 
   saveDataLocaleStorage() {
     localStorage.setItem('records', JSON.stringify(this.data));
+    localStorage.setItem('lastName', JSON.stringify(this.lastName));
   },
 
   showData() {
