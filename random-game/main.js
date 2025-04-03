@@ -23,7 +23,7 @@ const c = {
   numberTile: 4,
   higherNum: 1,
   padding: 0,
-  gap: 10,
+  gap: 5,
   sum: 0,
   arrayValues: [],
   filteredArray: [],
@@ -45,6 +45,7 @@ const c = {
     this.audioError = new Audio('./audio/audioError.mp3');
     this.audioBtn = new Audio('./audio/audioBtn.mp3');
     this.audioWin = new Audio('./audio/audioWin.mp3');
+
     // GAME CANVAS
 
     this.canvas = document.getElementById('canvas');
@@ -264,9 +265,6 @@ const c = {
         this.checkGameOver();
       }
     }
-    //  else {
-    //   this.checkZero();
-    // }
   },
 
   checkPossibleMoves() {
@@ -512,4 +510,5 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // CLICK
+
 document.addEventListener('keyup', c.move.bind(c));
