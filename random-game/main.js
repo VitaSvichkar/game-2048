@@ -194,20 +194,15 @@ const c = {
     this.isZero = isZero;
   },
 
-  checkMatch() {
+  hasAdjacentMatches() {
     this.isMatch = false;
-    if (!this.isZero) {
-      return;
-    }
+
     for (let i = 0; i < this.arrayValues.length; i += 1) {
       for (let j = 0; j < this.arrayValues[i].length - 1; j += 1) {
         if (this.arrayValues[i][j] === this.arrayValues[i][j + 1]) {
           this.isMatch = true;
-          break;
+          return;
         }
-      }
-      if (this.isMatch) {
-        break;
       }
     }
   },
@@ -281,10 +276,10 @@ const c = {
   },
 
   checkError() {
-    this.checkMatch();
+    this.hasAdjacentMatches();
     if (!this.isMatch) {
       this.transposeMatrix();
-      this.checkMatch();
+      this.hasAdjacentMatches();
       this.transposeMatrix();
       if (!this.isMatch) {
         this.showResults();
