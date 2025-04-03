@@ -397,10 +397,10 @@ const c = {
   // MODAL WITH RESULTS
 
   showResults() {
-    this.input.focus();
     this.modal.classList.remove('win');
     this.btnNewGame.classList.remove('btn-win');
     this.modalWrap.style.display = 'block';
+    this.input.focus();
     this.scoreResult.textContent = this.sum;
     this.scoreResult.style.color = this.colorScore;
 
@@ -412,7 +412,7 @@ const c = {
       this.titleScore.style.backgroundScore = 'rgb(19, 167, 17)';
     } else {
       this.audioError.play();
-      this.resultGameText.textContent = `You lost`;
+      this.resultGameText.textContent = `Well done`;
     }
   },
 
