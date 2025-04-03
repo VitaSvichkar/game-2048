@@ -270,12 +270,12 @@ const c = {
       if (!this.isZero) {
         return;
       } else {
-        this.checkError();
+        this.checkPossibleMoves();
       }
     }
   },
 
-  checkError() {
+  checkPossibleMoves() {
     this.hasAdjacentMatches();
     if (!this.isMatch) {
       this.transposeMatrix();
