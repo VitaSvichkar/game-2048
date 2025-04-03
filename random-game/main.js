@@ -1,10 +1,6 @@
 const c = {
   ctx: null,
   canvas: null,
-  matrixCanvas: null,
-  matrixWidth: 0,
-  matrixHeight: 0,
-  ctxM: null,
   scoreNum: null,
   colorScore: null,
   modalWrap: null,
@@ -27,12 +23,8 @@ const c = {
   numberTile: 4,
   higherNum: 1,
   padding: 0,
-  fontSize: 15,
   gap: 10,
   sum: 0,
-  columns: 0,
-  symbols: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-  drops: [],
   arrayValues: [],
   filteredArray: [],
   data: [],
@@ -58,15 +50,6 @@ const c = {
     this.canvas.width = this.widthCanvas;
     this.canvas.height = this.heightCanvas;
     this.ctx = this.canvas.getContext('2d');
-
-    // MATRIX CANVAS
-
-    this.matrixCanvas = document.getElementById('matrix-canvas');
-    this.ctxM = this.matrixCanvas.getContext('2d');
-    this.matrixWidth = window.innerWidth;
-    this.matrixHeight = window.innerHeight;
-    this.matrixCanvas.width = this.matrixWidth;
-    this.matrixCanvas.height = this.matrixHeight;
 
     // TABLE
 
@@ -108,40 +91,11 @@ const c = {
       }
     });
 
-    this.columns = this.matrixCanvas.width / this.fontSize;
-    this.drops = Array(Math.floor(this.columns)).fill(1);
     this.showData();
     this.createMatrix();
     this.addTile();
     this.addTile();
     this.drawTile();
-    this.animateMatrix();
-  },
-
-  // ANIMATION
-
-  animateMatrix() {
-    this.ctxM.fillStyle = 'rgba(0, 0, 0, 0.1)';
-    this.ctxM.fillRect(0, 0, this.matrixWidth, this.matrixHeight);
-    this.ctxM.fillStyle = 'green';
-    this.ctxM.font = `${this.fontSize}px 'Space Mono'`;
-
-    this.drops.forEach((drop, i) => {
-      const symbol =
-        this.symbols[Math.floor(Math.random() * this.symbols.length)];
-      this.ctxM.fillText(symbol, i * this.fontSize, drop * this.fontSize);
-
-      if (
-        drop * this.fontSize > this.matrixCanvas.height &&
-        Math.random() > 0.975
-      ) {
-        this.drops[i] = 0;
-      }
-
-      this.drops[i]++;
-    });
-
-    setTimeout(() => requestAnimationFrame(() => this.animateMatrix()), 75);
   },
 
   // DRAW TILE
@@ -561,10 +515,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // CLICK
 document.addEventListener('keyup', c.move.bind(c));
-
-window.addEventListener('resize', () => {
-  c.matrixCanvas.width = window.innerWidth;
-  c.matrixCanvas.height = window.innerHeight;
-  c.columns = c.matrixCanvas.width / c.fontSize;
-  c.drops = Array(Math.floor(c.columns)).fill(1);
-});
