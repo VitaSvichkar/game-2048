@@ -2,7 +2,7 @@
 
 **Deploy** [Live Demo](https://rolling-scopes-school.github.io/vitasvichkar-JSFE2023Q4/random-game/index.html)
 
-##Features:
+## Features:
 
 - Interactive game interface  
 - Footer with link to GitHub author, year of creation, and course logo with link  
